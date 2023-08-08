@@ -15,21 +15,23 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
                  </ol>
                  <img src="">
     */
+
+
  }
  
  function validateInput(testInput) {
 
-    if (typeof testInput.value === 'number') {
-
-            return "Is a Number";
-
-    } else if (testInput.value === '') {
+    if (testInput === '' || testInput === 0) {
 
             return "Empty";
 
-    } else if (isNaN(testInput.value)) {
+    } else if (isNaN(testInput)) {
 
             return "Not a Number";
+
+    } else if (typeof(testInput) === 'number') {
+
+            return "Is a Number";
 
     }
 
@@ -37,19 +39,12 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
-    let faultyItems = document.getElementByID('faultyItems');
-    let launchStatus = document.getElementByID('launchStatus');
-    let pilotStatus = document.getElementByID('pilotStatus');
-    let copilotStatus = document.getElementByID('copilotStatus'); 
-    let fuelStatus = document.getElementByID('fuelStatus');
-    let cargoStatus = document.getElementByID('cargoStatus');
-
-    let pilotName = document.querySelector('pilotName');
-    let copilotName = document.querySelector('copilotName');
-    let fuelAmount = document.querySelector('fuelLevel');
-    let cargoAmount = document.querySelector('cargoMass');
+    let launchStatus = document.getElementById('launchStatus');
+    let pilotStatus = document.getElementById('pilotStatus');
+    let copilotStatus = document.getElementById('copilotStatus'); 
+    let fuelStatus = document.getElementById('fuelStatus');
+    let cargoStatus = document.getElementById('cargoStatus');
     
-
     // Check that values entered into the form are valid
     if (validateInput(pilot) === 'Empty' || validateInput(pilot) === 'Is a Number') {
 
@@ -71,17 +66,17 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
     // Check Shuttle Requirements. If requirements are not met, display them in faultyItems with red launchStatus (fuelLevel must be 10000 or higher, cargoMass must be 10000 or less). If requirements are met, display them in faultyItems with green launchStatus
 
-    pilotStatus.innerHTML = `Pilot ${pilotName} is ready for launch`;
-    copilotStatus.innerHTML = `Co-pilot ${copilotName} is ready for launch`;
+    pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
+    copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
 
-    if (fuelAmount < 10000) {
+    if (fuelLevel < 10000) {
 
         fuelStatus.innerHTML = 'Fuel level too low for launch';
         launchStatus.innerHTML = 'Shuttle not ready for launch';
         launchStatus.style.color = 'red';
 
 
-    } else if (cargoAmount > 10000) {
+    } else if (cargoLevel > 10000) {
 
         cargoStatus.innerHTML = 'Cargo mass too heavy for launch';
         launchStatus.innerHTML = 'Shuttle not ready for launch';
@@ -96,7 +91,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
     }
 
-    faultyItems.visible = true;
+    list.visible = true;
     
  }
  
