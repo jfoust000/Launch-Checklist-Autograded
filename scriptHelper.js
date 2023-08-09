@@ -25,21 +25,19 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
                                       <li>Star: ${star}</li>
                                       <li>Distance from Earth: ${distance}</li>
                                       <li>Number of Moons: ${moons}</li>
-                                  <ol>
-                                  <img src=${imageUrl}>`
+                                  </ol>
+                                  <img src=${imageUrl}>`;
 
  }
  
  function validateInput(testInput) {
 
-    let letters = /^[A-Za-z]+$/; 
-
-    if (testInput === '' || testInput === 0 || (typeof(testInput) === 'string' && !testInput.match(letters))) {
+    if (testInput === '' || testInput === 0) {
 
             return "Empty";
 
     } else if (isNaN(testInput)) {
-
+        
             return "Not a Number";
 
     } else if (typeof(testInput) === 'number') {
@@ -49,9 +47,8 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
     } else if (typeof(testInput) === 'string' && typeof(Number(testInput)) === 'number') {
 
         return "Is a Number";
-
+    }
 }
- 
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
     let launchStatus = document.getElementById('launchStatus');
@@ -64,7 +61,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
     // Check that values entered into the form are valid
     if (validateInput(pilot) === 'Empty' || validateInput(Number(pilot)) === 'Is a Number') {
 
-        alert("Please Enter a valid Pilot Name.");
+        alert(`Please Enter a valid Pilot Name.${validateInput(pilot)}`);
         allFieldsCorrect = false;
 
     } else if (validateInput(copilot) === 'Empty' || validateInput(Number(copilot)) === 'Is a Number') {
@@ -98,7 +95,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
             fuelStatus.innerHTML = 'Fuel level too low for launch';
             fuelStatus.style.color = 'red';
-            launchStatus.innerHTML = 'Shuttle not ready for launch';
+            launchStatus.innerHTML = 'Shuttle Not Ready for Launch';
             launchStatus.style.color = 'red';
 
 
@@ -106,7 +103,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
             cargoStatus.innerHTML = 'Cargo mass too heavy for launch';
             cargoStatus.style.color = 'red';
-            launchStatus.innerHTML = 'Shuttle not ready for launch';
+            launchStatus.innerHTML = 'Shuttle Not Ready for Launch';
             launchStatus.style.color = 'red';
 
         } else {
@@ -125,20 +122,22 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  
  async function myFetch() {
     
-     let planetsReturned;
+     let planetsResponse;
  
-     planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
+     planetsResponse = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
 
         return response.json();
 
     });
  
-     return planetsReturned;
+     return planetsResponse;
  }
  
  function pickPlanet(planets) {
 
-    return Math.floor(Math.random() * planets.length);
+    let seed = Math.random();
+    let randomPlanet =  Math.floor( seed * planets.length);
+    return randomPlanet;
 
  }
  
