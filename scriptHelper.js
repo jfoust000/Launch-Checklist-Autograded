@@ -63,30 +63,42 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
         alert("Please Enter a valid Pilot Name.");
         allFieldsCorrect = false;
+
     } else if (!pilot.match(validLetters)) {
+
         alert("Enter First Name, or First and Last Name with One Space Between.");
         allFieldsCorrect = false;
+
     } else if (validateInput(copilot) === 'Empty' || validateInput(copilot) === 'Is a Number') {
 
         alert("Please Enter a valid Co-Pilot Name.");
         allFieldsCorrect = false;
+
     } else if (!copilot.match(validLetters)) {
+
         alert("Enter First Name, or First and Last Name with One Space Between.");
         allFieldsCorrect = false;
+
     } else if (validateInput(fuelLevel) === 'Empty' || validateInput(fuelLevel) === 'Not a Number') {
 
         alert("Please Enter a valid Fuel Level.");
         allFieldsCorrect = false;
+
     } else if (!String(fuelLevel).match(validNumbers)) {
+
         alert("Please Enter a valid Fuel Level.");
         allFieldsCorrect = false;
+
     } else if (validateInput(cargoLevel) === 'Empty' || validateInput(cargoLevel) === 'Not a Number') {
 
         alert("Please Enter a valid Cargo Level.");
         allFieldsCorrect = false;
+
     } else if (!String(cargoLevel).match(validNumbers)) {
+
             alert("Please Enter a valid Cargo Level.");
             allFieldsCorrect = false;
+
     } else {
 
         allFieldsCorrect = true;
@@ -116,6 +128,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
             launchStatus.innerHTML = 'Shuttle Not Ready for Launch';
             launchStatus.style.color = 'red';
             cargoStatus.style.color = '';
+            cargoStatus.innerHTML = 'Cargo mass low enough for launch';
 
 
         } else if (cargoLevel > 10000) {
@@ -126,6 +139,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
             fuelStatus.innerHTML = 'Fuel level high enough for launch';
             launchStatus.style.color = 'red';
             fuelStatus.style.color = '';
+            fuelStatus.innerHTML = 'Fuel level high enough for launch';
 
         } else {
 
