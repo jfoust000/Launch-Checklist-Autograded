@@ -36,11 +36,11 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
         return "Empty";
 
-    } else if (isNaN(testInput) === true) {
+    } else if (isNaN(testInput)) {
         
         return "Not a Number";
 
-    } else if (isNaN(testInput) === false) {
+    } else if (!isNaN(testInput)) {
 
         return "Is a Number";
 
@@ -48,17 +48,24 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 }
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
+    // Launch status elements within 'launchStatusCheck' div inside index.html
     let launchStatus = document.getElementById('launchStatus');
     let pilotStatus = document.getElementById('pilotStatus');
     let copilotStatus = document.getElementById('copilotStatus'); 
     let fuelStatus = document.getElementById('fuelStatus');
     let cargoStatus = document.getElementById('cargoStatus');
-    
+
+    // boolean variable to let us know if all form inputs contain valid data
     let allFieldsCorrect = false;
+
+    // Regular expression for fuelLevel and cargoLevel inputs to force only non-decimal
+    // integers up to 6 digits (i.e. 999999)
     let validNumbers = /^[0-9]{1,6}$/;
+
+    // Regular expression for pilot and copilot inputs to force only letters in the format of a first name only - or, first and last name separated by a single space. No special characters allowed.
     let validLetters = /^([a-zA-Z]+\s)*[a-zA-Z]+$/; 
     
-    // Check that values entered into the form are valid
+    // Check that values entered into the form are valid by calling validateInput as well as matching regular expressions
     if (validateInput(pilot) === 'Empty' || validateInput(pilot) === 'Is a Number') {
 
         alert("Please Enter a valid Pilot Name.");
@@ -66,7 +73,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
     } else if (!pilot.match(validLetters)) {
 
-        alert("Enter First Name, or First and Last Name with One Space Between.");
+        alert("Enter First Name Only, or First and Last Name with One Space Between.");
         allFieldsCorrect = false;
 
     } else if (validateInput(copilot) === 'Empty' || validateInput(copilot) === 'Is a Number') {
@@ -76,7 +83,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
     } else if (!copilot.match(validLetters)) {
 
-        alert("Enter First Name, or First and Last Name with One Space Between.");
+        alert("Enter First Name Only, or First and Last Name with One Space Between.");
         allFieldsCorrect = false;
 
     } else if (validateInput(fuelLevel) === 'Empty' || validateInput(fuelLevel) === 'Not a Number') {
@@ -86,7 +93,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
     } else if (!String(fuelLevel).match(validNumbers)) {
 
-        alert("Please Enter a valid Fuel Level.");
+        alert("Please Enter a positive non-decimal number up to 6 digits (i.e. 999999).");
         allFieldsCorrect = false;
 
     } else if (validateInput(cargoLevel) === 'Empty' || validateInput(cargoLevel) === 'Not a Number') {
@@ -96,7 +103,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
     } else if (!String(cargoLevel).match(validNumbers)) {
 
-            alert("Please Enter a valid Cargo Level.");
+            alert("Please Enter a positive non-decimal number up to 6 digits (i.e. 999999).");
             allFieldsCorrect = false;
 
     } else {
@@ -110,7 +117,8 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
         pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
         copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
-
+         
+        // If fuelLevel and cargoLevel are both invalid, update fuelStatus, launchStatus, and cargoStatus innerHTML and style.color
          if (fuelLevel < 10000 && cargoLevel > 10000) {
 
             fuelStatus.innerHTML = 'Fuel level too low for launch';
@@ -120,7 +128,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
             cargoStatus.innerHTML = 'Cargo mass too heavy for launch';
             cargoStatus.style.color = 'red';
 
-    
+        // If fuelLevel is invalid, update fuelStatus, launchStatus, and cargoStatus innerHTML and style.color
          } else if (fuelLevel < 10000) {
 
             fuelStatus.innerHTML = 'Fuel level too low for launch';
@@ -130,7 +138,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
             cargoStatus.style.color = '';
             cargoStatus.innerHTML = 'Cargo mass low enough for launch';
 
-
+        // If cargoLevel is invalid, update fuelStatus, launchStatus, and cargoStatus innerHTML and style.color
         } else if (cargoLevel > 10000) {
 
             cargoStatus.innerHTML = 'Cargo mass too heavy for launch';
@@ -141,6 +149,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
             fuelStatus.style.color = '';
             fuelStatus.innerHTML = 'Fuel level high enough for launch';
 
+        // All fields are correct. Set fuelStatus, launchStatus, and cargoStatus innerHTML and style.color     
         } else {
 
             fuelStatus.innerHTML = 'Fuel level high enough for launch';
@@ -153,6 +162,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
         }
 
+        // Make faultyItems visible whether launch is ready or not.
         list.style.visibility = 'visible';
     }
     
@@ -164,6 +174,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  
      planetsResponse = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
 
+        // return promise to myFetch call from script.js
         return response.json();
 
     });
@@ -172,9 +183,9 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  }
  
  function pickPlanet(planets) {
-
- 
-    return planets[Math.floor(Math.random() * planets.length)];
+     
+     // Return a single random planet object from json array of planet objects.
+     return planets[Math.floor(Math.random() * planets.length)];
 
  }
  
