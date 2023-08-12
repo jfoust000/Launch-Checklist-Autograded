@@ -29,22 +29,22 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
                                   <img src=${imageUrl}>`;
 
  }
- 
+
  function validateInput(testInput) {
 
- if (testInput === '') {
+    if (testInput === '') {
 
         return "Empty";
 
     } else if (isNaN(testInput)) {
-        
+            
         return "Not a Number";
 
     } else if (!isNaN(testInput)) {
 
         return "Is a Number";
-
     } 
+
 }
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
@@ -70,41 +70,65 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
         alert("Please Enter a valid Pilot Name.");
         allFieldsCorrect = false;
+        list.style.visibility = 'hidden';
+        launchStatus.innerHTML = 'Awaiting Information Before Launch';
+        launchStatus.style.color = '';
 
     } else if (!pilot.match(validLetters)) {
 
         alert("Enter First Name Only, or First and Last Name with One Space Between.");
         allFieldsCorrect = false;
+        list.style.visibility = 'hidden';
+        launchStatus.innerHTML = 'Awaiting Information Before Launch';
+        launchStatus.style.color = '';
 
     } else if (validateInput(copilot) === 'Empty' || validateInput(copilot) === 'Is a Number') {
 
         alert("Please Enter a valid Co-Pilot Name.");
         allFieldsCorrect = false;
+        list.style.visibility = 'hidden';
+        launchStatus.innerHTML = 'Awaiting Information Before Launch';
+        launchStatus.style.color = '';
 
     } else if (!copilot.match(validLetters)) {
 
         alert("Enter First Name Only, or First and Last Name with One Space Between.");
         allFieldsCorrect = false;
+        list.style.visibility = 'hidden';
+        launchStatus.innerHTML = 'Awaiting Information Before Launch';
+        launchStatus.style.color = '';
 
     } else if (validateInput(fuelLevel) === 'Empty' || validateInput(fuelLevel) === 'Not a Number') {
 
         alert("Please Enter a valid Fuel Level.");
         allFieldsCorrect = false;
+        list.style.visibility = 'hidden';
+        launchStatus.innerHTML = 'Awaiting Information Before Launch';
+        launchStatus.style.color = '';
 
     } else if (!String(fuelLevel).match(validNumbers)) {
 
         alert("Please Enter a positive non-decimal number up to 6 digits (i.e. 999999).");
         allFieldsCorrect = false;
+        list.style.visibility = 'hidden';
+        launchStatus.innerHTML = 'Awaiting Information Before Launch';
+        launchStatus.style.color = '';
 
     } else if (validateInput(cargoLevel) === 'Empty' || validateInput(cargoLevel) === 'Not a Number') {
 
         alert("Please Enter a valid Cargo Level.");
         allFieldsCorrect = false;
+        list.style.visibility = 'hidden';
+        launchStatus.innerHTML = 'Awaiting Information Before Launch';
+        launchStatus.style.color = '';
 
     } else if (!String(cargoLevel).match(validNumbers)) {
 
             alert("Please Enter a positive non-decimal number up to 6 digits (i.e. 999999).");
             allFieldsCorrect = false;
+            list.style.visibility = 'hidden';
+            launchStatus.innerHTML = 'Awaiting Information Before Launch';
+            launchStatus.style.color = '';
 
     } else {
 
